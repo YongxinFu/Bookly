@@ -2,17 +2,17 @@ from datetime import datetime
 from uuid import UUID, uuid4
 
 import sqlalchemy.dialects.postgresql as pg
-from sqlmodel import Column, Field, SQLModel
+from sqlalchemy import Column
+from sqlmodel import Field, SQLModel
 
 
 class Book(SQLModel, table=True):
-    __tablename__ = "books"
-
-    uid: UUID = Field(
+    __tablename__ = "book"
+    id: UUID = Field(
         sa_column=Column(
             pg.UUID,
-            primary_key=True,
             default=uuid4,
+            primary_key=True,
         )
     )
     title: str
@@ -34,6 +34,3 @@ class Book(SQLModel, table=True):
             onupdate=datetime.now,
         )
     )
-
-    def __repr__(self):
-        return f"<Book {self.title}>"
